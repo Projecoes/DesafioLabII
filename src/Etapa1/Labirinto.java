@@ -19,10 +19,10 @@ public class Labirinto {
      * Conta o número de linhas e determina o maior número de colunas,
      * para alocar corretamente a matriz que representará o labirinto.
      *
-     * @param filename o nome do arquivo que contém o labirinto
+     * @param fileName o nome do arquivo que contém o labirinto
      */
-    public void criaLabirinto(String filename) {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
+    public void criaLabirinto(String fileName) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
             // LINHA NO SINGULAR é string
             String linha;
             //LINHAS no plural é int
@@ -40,8 +40,8 @@ public class Labirinto {
 
             bufferedReader.close();
 
-            // Abre um novo BufferedReader para ler o arquivo novamente
-            BufferedReader bufferedReader2 = new BufferedReader(new FileReader(filename));
+            // Abrindo um novo BufferedReader para ler o arquivo novamente
+            BufferedReader bufferedReader2 = new BufferedReader(new FileReader(fileName));
             int i = 0;
 
             // Lê cada linha do arquivo até o fim
@@ -60,4 +60,21 @@ public class Labirinto {
         }
     }
 
+
+    //todo: implementar o método
+    public boolean percorreLabirinto(){
+        return false;
+    }
+
+
+
+    //todo: implementar o método
+    public void imprimeLabirinto(){
+
+    }
+
+    //todo: implementar o método
+    public boolean  resolverLabirinto(int i, int j) {
+        return false;
+    }
 }
