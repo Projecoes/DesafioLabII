@@ -5,23 +5,22 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Labirinto {
-    private final char PAREDE = 'X';
-    private final char CAMINHO_ABERTO = ' ';
-    private final char SAIDA = 'D';
-    private final char CAMINHO_SOLUCAO = '#';
+    private static final char PAREDE = 'X';
+    private static final char CAMINHO_ABERTO = ' ';
+    private static final char SAIDA = 'D';
+    private static final char CAMINHO_SOLUCAO = '#';
 
-    private char[][] labirinto;
-
+    private static char[][] labirinto;
 
 
     /**
-     * Lê um arquivo de texto contendo a representação de um labirinto.
+     * Lê o arquivo de texto contendo o labirinto.
      * Conta o número de linhas e determina o maior número de colunas,
-     * para alocar corretamente a matriz que representará o labirinto.
+     * para posicionar corretamente a matriz que representa o labirinto.
      *
      * @param fileName o nome do arquivo que contém o labirinto
      */
-    public void criaLabirinto(String fileName) {
+    public void criaLabirinto(String fileName) throws IllegalArgumentException {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
             // LINHA NO SINGULAR é string
             String linha;
@@ -56,20 +55,19 @@ public class Labirinto {
 
             bufferedReader2.close();
         } catch (IOException e) {
-            System.out.println("Erro ao ler o arquivo: " + e.getMessage());
+            throw new IllegalArgumentException("meu deus");
         }
     }
 
 
-
-    public boolean percorreLabirinto(){
-        return resolverLabirinto(0,0);
+    //começa o labirinto da primeira posição de X e Y
+    public boolean percorreLabirinto() {
+        return resolverLabirinto(0, 0);
     }
 
 
-
-
-    public void imprimeLabirinto(){
+    //imprime o labirinto completo
+    public void imprimeLabirinto() {
         for (int i = 0; i < labirinto.length; i++) {
             for (int j = 0; j < labirinto[i].length; j++) {
                 System.out.print(labirinto[i][j]);
@@ -78,8 +76,55 @@ public class Labirinto {
         }
     }
 
-    //todo: implementar o método
-    public boolean  resolverLabirinto(int i, int j) {
+
+
+    /**
+     * Metodo recursivo que tenta encontrar uma saída no labirinto a partir da posição (x, y).
+     * Marca o caminho percorrido com o caractere CAMINHO_SOLUCAO ('#') e volta
+     * se encontrar um beco.
+
+     * @param x A coordenada da linha atual no labirinto.
+     * @param y A coordenada da coluna atual no labirinto.
+     * @return true se a saída do labirinto (SAIDA, 'D') for encontrada a partir desta posição,
+     *         false caso contrário.
+
+     * O algoritmo segue os seguintes passos:
+     * 1. Verifica se a posição atual está dentro dos limites do labirinto.
+     * 2. Verifica se a posição atual é a saída; se sim, retorna true.
+     * 3. Verifica se a posição é um caminho aberto; se não, retorna false.
+     * 4. Marca a posição atual como parte da solução com CAMINHO_SOLUCAO('#').
+     * 5. Tenta percorrer recursivamente para cima, baixo, esquerda e direita.
+     * 6. Se nenhum caminho leva à saída, desfaz a marcação e retorna false.
+     */
+    private boolean resolverLabirinto(int x, int y) {
+        // verificando se o X e o Y estão dentro dos limites do labirinto
+        if (x < 0 || x >= labirinto.length || y < 0 || y >= labirinto[0].length) {
+            return false;
+        }
+
+        // se chegou na saida retorna true
+        if (labirinto[x][y] == SAIDA) {
+            return true;
+        }
+
+        // Se não é caminho aberto, não pode passar
+        if (labirinto[x][y] != CAMINHO_ABERTO) {
+            return false;
+        }
+
+        // Marca o caminho atual como parte da solução
+        labirinto[x][y] = CAMINHO_SOLUCAO;
+
+        // Anda nas quatro direções
+        if (resolverLabirinto(x - 1, y) || // cima
+                resolverLabirinto(x + 1, y) || // baixo
+                resolverLabirinto(x, y - 1) || // esquerda
+                resolverLabirinto(x, y + 1)) { // direita
+            return true;
+        }
+
+        // Se não deu certo, volta
+        labirinto[x][y] = CAMINHO_ABERTO;
         return false;
     }
 }
