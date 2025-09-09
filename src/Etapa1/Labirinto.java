@@ -61,16 +61,21 @@ public class Labirinto {
     }
 
 
-    //todo: implementar o método
+
     public boolean percorreLabirinto(){
-        return false;
+        return resolverLabirinto(0,0);
     }
 
 
 
-    //todo: implementar o método
-    public void imprimeLabirinto(){
 
+    public void imprimeLabirinto(){
+        for (int i = 0; i < labirinto.length; i++) {
+            for (int j = 0; j < labirinto[i].length; j++) {
+                System.out.print(labirinto[i][j]);
+            }
+            System.out.println();
+        }
     }
 
     //todo: implementar o método
