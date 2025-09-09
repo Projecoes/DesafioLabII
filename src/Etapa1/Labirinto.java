@@ -3,6 +3,8 @@ package Etapa1;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Labirinto {
     private static final char PAREDE = 'X';
@@ -14,48 +16,40 @@ public class Labirinto {
 
 
     /**
-     * Lê o arquivo de texto contendo o labirinto.
-     * Conta o número de linhas e determina o maior número de colunas,
-     * para posicionar corretamente a matriz que representa o labirinto.
+     * Lê um arquivo de texto contendo o labirinto e armazena em uma matriz bidimensional.
+     * Cada caractere representa uma célula ({@code X} = parede, {@code ' '} = caminho, {@code D} = saída).
+     * Ajusta o tamanho da matriz conforme o número de linhas e a maior linha do arquivo.
      *
-     * @param fileName o nome do arquivo que contém o labirinto
+     * @param fileName caminho do arquivo do labirinto
+     * @throws IllegalArgumentException se ocorrer erro na leitura do arquivo
      */
     public void criaLabirinto(String fileName) throws IllegalArgumentException {
+        List<String> linhasDoArquivo = new ArrayList<>();
+        int colunas = 0;
+
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
-            // LINHA NO SINGULAR é string
             String linha;
-            //LINHAS no plural é int
-            int linhas = 0;
-            int colunas = 0;
-
-            // Conta as linhas e colunas
             while ((linha = bufferedReader.readLine()) != null) {
-                linhas++;
-                // Atualiza o número de colunas com base na linha mais longa encontrada até agora
-                colunas = Math.max(colunas, linha.length());
+                linhasDoArquivo.add(linha);
+                colunas = Math.max(colunas, linha.length()); // maior linha define o número de colunas
             }
-
-            labirinto = new char[linhas][colunas];
-
-            bufferedReader.close();
-
-            // Abrindo um novo BufferedReader para ler o arquivo novamente
-            BufferedReader bufferedReader2 = new BufferedReader(new FileReader(fileName));
-            int i = 0;
-
-            // Lê cada linha do arquivo até o fim
-            while ((linha = bufferedReader2.readLine()) != null) {
-                // Para cada caractere da linha atual...
-                for (int j = 0; j < linha.length(); j++) {
-                    // Copia o caractere da string para a matriz labirinto na posição [i][j]
-                    labirinto[i][j] = linha.charAt(j);
-                }
-                i++;
-            }
-
-            bufferedReader2.close();
         } catch (IOException e) {
-            throw new IllegalArgumentException("meu deus");
+            throw new IllegalArgumentException("Erro ao ler o arquivo: " + fileName);
+        }
+
+        // Inicializa o array com o tamanho correto
+        labirinto = new char[linhasDoArquivo.size()][colunas];
+
+        // Preenche o labirinto
+        for (int i = 0; i < linhasDoArquivo.size(); i++) {
+            String linha = linhasDoArquivo.get(i);
+            for (int j = 0; j < linha.length(); j++) {
+                labirinto[i][j] = linha.charAt(j);
+            }
+            // Se a linha for menor que colunas, o resto permanece com '\0'
+            for (int j = linha.length(); j < colunas; j++) {
+                labirinto[i][j] = ' '; // ou PAREDE, dependendo do que fizer sentido
+            }
         }
     }
 
@@ -77,17 +71,16 @@ public class Labirinto {
     }
 
 
-
     /**
      * Metodo recursivo que tenta encontrar uma saída no labirinto a partir da posição (x, y).
      * Marca o caminho percorrido com o caractere CAMINHO_SOLUCAO ('#') e volta
      * se encontrar um beco.
-
+     *
      * @param x A coordenada da linha atual no labirinto.
      * @param y A coordenada da coluna atual no labirinto.
      * @return true se a saída do labirinto (SAIDA, 'D') for encontrada a partir desta posição,
-     *         false caso contrário.
-
+     * false caso contrário.
+     * <p>
      * O algoritmo segue os seguintes passos:
      * 1. Verifica se a posição atual está dentro dos limites do labirinto.
      * 2. Verifica se a posição atual é a saída; se sim, retorna true.
