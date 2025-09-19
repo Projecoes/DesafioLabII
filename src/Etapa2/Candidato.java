@@ -1,14 +1,18 @@
 package Etapa2;
 
 public class Candidato {
+
+    //atributos
     private String nome;
     private String partido;
     private int intencoesVotos;
 
 
+    //construtor vazio
     public Candidato() {
     }
 
+    //contrutor com todos os argumentos
     public Candidato(String nome, String partido, int intencoesVotos) {
         this.nome = nome;
         this.partido = partido;
@@ -16,6 +20,7 @@ public class Candidato {
     }
 
 
+    //getters e setters
     public String getNome() {
         return nome;
     }

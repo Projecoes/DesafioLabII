@@ -8,8 +8,8 @@ public class PrincipalCandidatos {
         Random random = new Random();
         Scanner sc = new Scanner(System.in);
 
-        // Array de tamanho aleatório entre 1 e 20
-        int tamanho = random.nextInt(20) + 1;
+        // Array de tamanho aleatório entre 1 e 100
+        int tamanho = random.nextInt(100) + 1;
         Candidato[] candidatos = new Candidato[tamanho];
 
         // Listas de nomes e partidos para gerar aleatoriamente
