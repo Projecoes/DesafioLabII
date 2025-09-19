@@ -58,6 +58,6 @@ public class OrdenarCandidatos {
                 inicio = meio + 1;
             }
         }
-        return 1;
+        return -1;
     }
 }
