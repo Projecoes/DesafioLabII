@@ -2,16 +2,16 @@ package Etapa2;
 
 public class Candidato {
     private String nome;
-    private String partida;
+    private String partido;
     private int intencoesVotos;
 
 
     public Candidato() {
     }
 
-    public Candidato(String nome, String partida, int intencoesVotos) {
+    public Candidato(String nome, String partido, int intencoesVotos) {
         this.nome = nome;
-        this.partida = partida;
+        this.partido = partido;
         this.intencoesVotos = intencoesVotos;
     }
 
@@ -24,12 +24,12 @@ public class Candidato {
         this.nome = nome;
     }
 
-    public String getPartida() {
-        return partida;
+    public String getPartido() {
+        return partido;
     }
 
-    public void setPartida(String partida) {
-        this.partida = partida;
+    public void setPartido(String partido) {
+        this.partido = partido;
     }
 
     public int getIntencoesVotos() {
@@ -44,7 +44,7 @@ public class Candidato {
     public String toString() {
         return "Candidato{" +
                 "nome: " + nome + '\'' +
-                ", partida: " + partida + '\'' +
+                ", partida: " + partido + '\'' +
                 ", intencoesVotos: " + intencoesVotos +
                 '}';
     }
