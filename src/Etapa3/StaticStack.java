@@ -1,5 +1,7 @@
 package Etapa3;
 
+import java.util.Arrays;
+
 public class StaticStack<E> implements Stack<E>{
 
     private int top;
@@ -24,21 +26,41 @@ public class StaticStack<E> implements Stack<E>{
 
     @Override
     public int numElements() {
-        return 0;
+        return top + 1;
     }
 
     @Override
     public void push(E element) throws OverflowException {
-
+        if(isFull()) {
+            throw  new OverflowException();
+        }
+        elements[++top] = element;
     }
 
     @Override
     public E pop() throws UnderflowException {
-        return null;
+        if (isEmpty()) {
+            throw new UnderflowException();
+        }
+        E element = (E) elements[top];
+        elements[top--] = null;
+        return element;
     }
 
     @Override
     public E top() throws UnderflowException {
-        return null;
+        if (isEmpty()) {
+            throw new UnderflowException();
+        }
+        return (E) elements[top];
+    }
+
+    @Override
+    public String toString() {
+        return "StaticStack{" +
+                "top=" + top +
+                ", elements=" + Arrays.toString(elements) +
+                ", maxSize=" + maxSize +
+                '}';
     }
 }
