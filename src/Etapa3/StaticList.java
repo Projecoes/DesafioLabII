@@ -1,110 +1,108 @@
 package Etapa3;
 
-/**
- * Implementação de uma lista linear com armazenamento estático,
- * baseado em array.
- */
 public class StaticList<E> implements Lista<E> {
-
     private E[] elements;
     private int size;
     private int maxSize;
 
-    /**
-     * Constrói uma lista com um tamanho máximo.
-     *
-     * @param maxSize O tamanho máximo da lista
-     */
+    @SuppressWarnings("unchecked")
     public StaticList(int maxSize) {
         this.maxSize = maxSize;
-        this.elements = new Object[maxSize];
+        this.elements = (E[]) new Object[maxSize];
         this.size = 0;
-
     }
 
+    @Override
     public int numElements() {
         return size;
     }
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+    @Override
     public boolean isFull() {
         return size == maxSize;
     }
 
-    public void insert(E element, int pos) throws OverflowException, IndexOutOfBoundsException {
-        // verifica se há espaço na lista
-        if (isFull())
+    @Override
+    public void insert(E element, int pos) {
+        if (isFull()) {
             throw new OverflowException();
+        }
+        if (pos < 0 || pos > size) {
+            throw new IndexOutOfBoundsException("Posição inválida: " + pos);
+        }
 
-        // verifica se a posição é válida
-        if (pos < 0 || pos > size)
-            throw new IndexOutOfBoundsException("Posição Inválida: " + pos);
+        // Desloca elementos para a direita
+        for (int i = size; i > pos; i--) {
+            elements[i] = elements[i - 1];
+        }
 
-        // desloca para a direita os elementos necessários,
-        // abrindo espaço para o novo
-        for (int i = size - 1; i >= pos; i--)
-            elements[i] = elements[i = 1];
-
-        // armazena o novo elemento e ajusta o total
         elements[pos] = element;
         size++;
     }
 
     @Override
-    public void contaElementos(E el) {
-
-    }
-
-    public E remove(int pos) throws UnderflowException, IndexOutOfBoundsException {
-        if (isEmpty())
+    public E remove(int pos) {
+        if (isEmpty()) {
             throw new UnderflowException();
+        }
+        if (pos < 0 || pos >= size) {
+            throw new IndexOutOfBoundsException("Posição inválida: " + pos);
+        }
 
-        // verifica se a posição é válida
-        if (pos < 0 || pos >= size)
-            throw new IndexOutOfBoundsException("Posição Inválida: " + pos);
+        E element = elements[pos];
 
-        // guarda uma referencia temporária ao elemento removido
-        E element = (E) elements[pos];
-
-        // desloca para a esquerda os elementos necessários,
-        // sobrescrevendo a posição do que está sendo removido
-        for (int i = pos; i < size - 1; i++)
+        // Desloca elementos para a esquerda
+        for (int i = pos; i < size - 1; i++) {
             elements[i] = elements[i + 1];
+        }
 
-        // define para null a posição antes ocupada pelo último,
-        // para que a coleta de lixo possa atuar, e ajusta o total
         elements[size - 1] = null;
         size--;
         return element;
     }
 
-    public E get(int pos) throws IndexOutOfBoundsException {
-        // verifica se a posição é válida
-        if (pos < 0 || pos >= size)
-            throw new IndexOutOfBoundsException("Posição Inválida: " + pos);
-
-        return (E) elements[pos];
+    @Override
+    public E get(int pos) {
+        if (pos < 0 || pos >= size) {
+            throw new IndexOutOfBoundsException("Posição inválida: " + pos);
+        }
+        return elements[pos];
     }
 
+    @Override
+    public int contaElementos(E el, int index) {
+        return contaElementosRecursivo(el, 0);
+    }
+
+    @Override
     public int search(E element) {
-        for (int i = 0; i < size; i++)
-            if (elements[i].equals(element))
+        for (int i = 0; i < size; i++) {
+            if (elements[i] != null && elements[i].equals(element)) {
                 return i;
-        // se chegar até aqui, é porque não encontrou
+            }
+        }
         return -1;
     }
 
-    /**
-     * Retorna uma representação String da lista.
-     */
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        for (int i = 0; i < size; i++)
-            s.append(elements[i]).append(" ");
-        return s.toString();
+    // Método privado recursivo
+    private int contaElementosRecursivo(E el, int index) {
+        // Caso base: chegou ao final da lista
+        if (index >= size) {
+            return 0;
+        }
+
+        // Verifica se o elemento atual é igual ao procurado
+        int count = 0;
+        if (elements[index] != null && elements[index].equals(el)) {
+            count = 1;
+        }
+
+        // Chamada recursiva para o próximo elemento
+        return count + contaElementosRecursivo(el, index + 1);
     }
 }
-

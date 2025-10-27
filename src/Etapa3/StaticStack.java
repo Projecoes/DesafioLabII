@@ -1,16 +1,14 @@
 package Etapa3;
 
-import java.util.Arrays;
-
-public class StaticStack<E> implements Stack<E>{
-
+public class StaticStack<E> implements Stack<E> {
     private int top;
-    private Object[] elements;
+    private E[] elements;
     private int maxSize;
 
+    @SuppressWarnings("unchecked")
     public StaticStack(int maxSize) {
         this.maxSize = maxSize;
-        this.elements = new Object[maxSize];
+        this.elements = (E[]) new Object[maxSize];
         this.top = -1;
     }
 
@@ -21,7 +19,7 @@ public class StaticStack<E> implements Stack<E>{
 
     @Override
     public boolean isFull() {
-        return top == maxSize -1;
+        return top == maxSize - 1;
     }
 
     @Override
@@ -31,8 +29,8 @@ public class StaticStack<E> implements Stack<E>{
 
     @Override
     public void push(E element) throws OverflowException {
-        if(isFull()) {
-            throw  new OverflowException();
+        if (isFull()) {
+            throw new OverflowException();
         }
         elements[++top] = element;
     }
@@ -42,7 +40,7 @@ public class StaticStack<E> implements Stack<E>{
         if (isEmpty()) {
             throw new UnderflowException();
         }
-        E element = (E) elements[top];
+        E element = elements[top];
         elements[top--] = null;
         return element;
     }
@@ -52,15 +50,23 @@ public class StaticStack<E> implements Stack<E>{
         if (isEmpty()) {
             throw new UnderflowException();
         }
-        return (E) elements[top];
+        return elements[top];
     }
 
     @Override
     public String toString() {
-        return "StaticStack{" +
-                "top=" + top +
-                ", elements=" + Arrays.toString(elements) +
-                ", maxSize=" + maxSize +
-                '}';
+        if (isEmpty()) {
+            return "[]";
+        }
+
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i <= top; i++) {
+            sb.append(elements[i]);
+            if (i < top) {
+                sb.append(", ");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }

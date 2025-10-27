@@ -12,10 +12,6 @@ public interface Lista<E> {
      */
     public void insert(E element, int index);
 
-
-    public void contaElementos( E el);
-
-
     /**
      * Informa a quantidade de elementos armazenados na lista.
      * @return A quantidade de elementos armazenados na lista.
@@ -45,6 +41,8 @@ public interface Lista<E> {
      */
     public E get(int index);
 
+    int contaElementos(E el, int index);
+
     /**
      * Remove o elemento da posição indicada.
      * @param index A posição de onde o elemento será removido
@@ -52,4 +50,6 @@ public interface Lista<E> {
      * @return O elemento removido
      */
     public E remove(int index);
+
+    int search(E element);
 }
