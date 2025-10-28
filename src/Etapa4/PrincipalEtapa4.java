@@ -2,7 +2,7 @@ package Etapa4;
 
 public class PrincipalEtapa4 {
     public static void main(String[] args) {
-
+/*
         // Teste 1: Operações com Pilha (LinkedStack)
         System.out.println("Teste 1: Contagem de Elementos na Pilha (LinkedStack)");
         LinkedStack stack = new LinkedStack<>();
@@ -42,6 +42,7 @@ public class PrincipalEtapa4 {
         System.out.println("Último da fila (back): " + queue.back());
         System.out.println("---------------------------------------------------");
 
-
+*/
     }
+
 }

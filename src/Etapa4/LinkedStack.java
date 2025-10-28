@@ -1,24 +1,35 @@
 package Etapa4;
 
-public class LinkedStack {
+public class LinkedStack<E> implements Stack<E> {
 
+
+    @Override
     public boolean isEmpty() {
         return false;
     }
+
+    @Override
     public boolean isFull() {
         return false;
     }
-    public void push(Object element) {
 
+    @Override
+    public int numElements() {
+        return 0;
     }
-    public void pop() {
 
-    }
-    public void top() {
-
-    }
-    public void numElements() {
+    @Override
+    public void push(E element) throws OverflowException {
 
     }
 
+    @Override
+    public E pop() throws UnderflowException {
+        return null;
+    }
+
+    @Override
+    public E top() throws UnderflowException {
+        return null;
+    }
 }
