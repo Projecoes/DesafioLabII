@@ -2,10 +2,10 @@ package Etapa4;
 
 public class PrincipalEtapa4 {
     public static void main(String[] args) {
-/*
+
         // Teste 1: Operações com Pilha (LinkedStack)
         System.out.println("Teste 1: Contagem de Elementos na Pilha (LinkedStack)");
-        LinkedStack stack = new LinkedStack<>();
+        LinkedStack<Object> stack = new LinkedStack<>();
 
         // Verifica se a pilha está vazia
         System.out.println("Pilha está vazia? " + stack.isEmpty());
@@ -23,7 +23,7 @@ public class PrincipalEtapa4 {
 
         // Teste 2: Operações com Fila (LinkedQueue)
         System.out.println("Teste 2: Verificação de Elementos na Fila (LinkedQueue)");
-        LinkedQueue queue = new LinkedQueue<>();
+        LinkedQueue<Object> queue = new LinkedQueue<>();
 
         // Verifica se a fila está vazia
         System.out.println("Fila está vazia? " + queue.isEmpty());
@@ -42,7 +42,7 @@ public class PrincipalEtapa4 {
         System.out.println("Último da fila (back): " + queue.back());
         System.out.println("---------------------------------------------------");
 
-*/
+
     }
 
 }
