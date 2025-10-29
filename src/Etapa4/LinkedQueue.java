@@ -29,25 +29,44 @@ public class LinkedQueue<E> implements Queue<E>{
 
     @Override
     public void enqueue(E element) throws OverflowException {
-
+        Node<E> novoNode = new Node<>(element);
+        if (isEmpty()) {
+            front = novoNode;
+        }else {
+            back.setNext(novoNode);
+        }
+        back = novoNode;
+        size++;
     }
 
     @Override
     public E dequeue() throws UnderflowException {
-        return null;
+        if (isEmpty()) {
+            throw new UnderflowException();
+        }
+        E element = front.getElement();
+        if (front == null) {
+            back = null; //fila vazia
+        }
+        size--;
+        return element;
     }
 
     @Override
     public E front() throws UnderflowException {
-        return null;
+        if (isEmpty()) {
+            throw new UnderflowException();
+        }
+        return front.getElement();
     }
 
     @Override
     public E back() throws UnderflowException {
-        return null;
+        if (isEmpty()) {
+            throw new UnderflowException();
+        }
+        return back.getElement();
     }
 
-    public void first(){
-
-    }
+    public void first() {}
 }
