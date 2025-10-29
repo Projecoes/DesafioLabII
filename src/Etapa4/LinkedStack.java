@@ -2,24 +2,35 @@ package Etapa4;
 
 public class LinkedStack<E> implements Stack<E> {
 
+    private Node<E> top;
+    private int size;
+
+    public LinkedStack(){
+        top = null;
+        size = 0;
+    }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return top == null;
     }
 
     @Override
     public boolean isFull() {
-        return false;
+        return false; //nunca fica cheia
     }
 
     @Override
     public int numElements() {
-        return 0;
+        return size;
     }
 
     @Override
     public void push(E element) throws OverflowException {
+        Node<E> novoNode = new Node<>(element);
+        novoNode.setNext(top);
+        top = novoNode;
+        size++;
 
     }
 
