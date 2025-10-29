@@ -2,19 +2,29 @@ package Etapa4;
 
 public class LinkedQueue<E> implements Queue<E>{
 
+    private Node<E> front;
+    private Node<E> back;
+    private int size;
+
+    public LinkedQueue() {
+        front = null;
+        back = null;
+        size = 0;
+    }
+
     @Override
     public boolean isEmpty() {
-        return false;
+        return front == null;
     }
 
     @Override
     public boolean isFull() {
-        return false;
+        return false; //nunca fica cheia
     }
 
     @Override
     public int numElements() {
-        return 0;
+        return size;
     }
 
     @Override
