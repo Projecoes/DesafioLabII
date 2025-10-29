@@ -36,11 +36,20 @@ public class LinkedStack<E> implements Stack<E> {
 
     @Override
     public E pop() throws UnderflowException {
-        return null;
+        if (isEmpty()) {
+            throw new UnderflowException();
+        }
+        E element = top.getElement();
+        top = top.getNext();
+        size--;
+        return element;
     }
 
     @Override
     public E top() throws UnderflowException {
-        return null;
+        if (isEmpty()) {
+            throw new UnderflowException();
+        }
+        return top.getElement();
     }
 }
