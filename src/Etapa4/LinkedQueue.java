@@ -68,5 +68,10 @@ public class LinkedQueue<E> implements Queue<E>{
         return back.getElement();
     }
 
-    public void first() {}
+    public E first() throws UnderflowException {
+        if(isEmpty()) {
+            throw new UnderflowException();
+        }
+        return front.getElement();
+    }
 }
